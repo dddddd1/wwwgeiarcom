@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /work/
+Disallow: /images/
+Allow: /
+
+Sitemap: https://www.geiar.com/sitemap.xml
