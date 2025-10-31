@@ -124,6 +124,14 @@
   #site-bottom .footer-nav ul li {
     padding: 0 5px;
   }
+  
+  /* 修复移动端图片显示 */
+  .content-list .thumbnail-link img,
+  .entry-related .thumbnail-wrap img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
@@ -153,6 +161,13 @@
   }
   .comment-form .comment-form-url {
     width: 32%;
+  }
+  
+  /* 平板设备图片优化 */
+  .content-list .thumbnail-link img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }
 
@@ -217,6 +232,15 @@
   #site-bottom .footer-nav li {
     margin: 0 5px;
   }
+  
+  /* 移动端图片优化 */
+  .content-list .thumbnail-link img,
+  .entry-related .thumbnail-wrap img,
+  .content-search .thumbnail-link img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
@@ -256,6 +280,14 @@
   }
   .entry-related .hentry:nth-of-type(3n+1) {
     clear: none;
+  }
+  
+  /* 中等移动设备图片优化 */
+  .content-list .thumbnail-link img,
+  .entry-related .thumbnail-wrap img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }
 
@@ -339,5 +371,13 @@
   #comments .comment-metadata,
   .comment-respond .comment-metadata {
     display: none;
+  }
+  
+  /* 小屏幕设备图片优化 */
+  .content-list .thumbnail-link img,
+  .entry-related .thumbnail-wrap img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }

@@ -126,6 +126,8 @@ figure > img {
 img {
   height: auto;
   max-width: 100%;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 img[class*="align"],
@@ -1364,6 +1366,9 @@ a:active, a:focus {
 .entry-content img {
   margin-bottom: 20px;
   max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .page-content .wp-caption img,

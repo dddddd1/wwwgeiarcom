@@ -1,0 +1,66 @@
+/* 修复图片显示比例和分辨率问题 */
+/* 确保所有图片保持原始宽高比 */
+mip-img {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+  object-fit: cover; /* 保持图片比例并填充容器 */
+}
+
+/* 特别针对文章内容中的图片 */
+.entry-content mip-img,
+.page-content mip-img {
+  height: auto;
+  max-width: 100%;
+  width: auto\9; /* IE8+ 兼容 */
+  -ms-interpolation-mode: bicubic; /* 提高IE图片显示质量 */
+}
+
+/* 修复缩略图显示比例 */
+.thumbnail-wrap mip-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 16/9; /* 统一设置为16:9比例 */
+}
+
+/* 针对相关推荐区域的图片 */
+.entry-related .thumbnail-wrap mip-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 4/3; /* 设置为4:3比例 */
+}
+
+/* 侧边栏图片 */
+.sidebar mip-img {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+/* 底部图片 */
+.site-footer mip-img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 响应式图片处理 */
+@media only screen and (max-width: 768px) {
+  mip-img {
+    height: auto;
+    max-width: 100%;
+  }
+  
+  .thumbnail-wrap mip-img {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* 高分辨率图片支持 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  mip-img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
