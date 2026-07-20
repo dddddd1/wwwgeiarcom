@@ -381,3 +381,53 @@
     object-fit: cover;
   }
 }
+
+/* === MOBILE NAV FIX (纯CSS, 无需JS, 点击展开) === */
+/* 汉堡开关元素：桌面端完全隐藏 */
+.nav-toggle-cb { position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; pointer-events: none; }
+.nav-toggle-btn { display: none; }
+@media only screen and (max-width: 959px) {
+  #slick-mobile-menu, .slicknav_menu { display: none !important; }
+  .site-header { height: auto !important; }
+  .site-header .container { display: block !important; }
+  .site-branding { position: static !important; float: none !important; width: 100% !important; text-align: left; }
+  .site-branding #logo { height: auto !important; }
+  #primary-nav { display: block !important; float: none !important; width: 100% !important; clear: both; margin: 6px 0 8px; position: relative; }
+
+  /* 汉堡按钮 */
+  .nav-toggle-btn { display: flex !important; align-items: center; gap: 10px; cursor: pointer; user-select: none;
+    padding: 12px 16px; background: #fff; border: 1px solid #e6e6e6; border-radius: 10px;
+    font-size: 15px; font-weight: 600; color: #1d1d1f; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    -webkit-tap-highlight-color: transparent; transition: background .2s, color .2s, border-color .2s; }
+  .nav-toggle-btn .nav-toggle-bars { position: relative; display: inline-block; width: 20px; height: 2px;
+    background: #1d1d1f; border-radius: 2px; transition: background .2s; }
+  .nav-toggle-btn .nav-toggle-bars::before,
+  .nav-toggle-btn .nav-toggle-bars::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px;
+    background: #1d1d1f; border-radius: 2px; transition: transform .2s, top .2s, background .2s; }
+  .nav-toggle-btn .nav-toggle-bars::before { top: -6px; }
+  .nav-toggle-btn .nav-toggle-bars::after { top: 6px; }
+  .nav-toggle-btn .nav-toggle-txt-close { display: none; }
+
+  /* 菜单默认收起，点击后展开 */
+  #primary-nav .sf-menu { display: none !important; float: none !important; margin-top: 8px;
+    background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; padding: 4px 0; box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+  #primary-nav .nav-toggle-cb:checked ~ div .sf-menu,
+  #primary-nav .nav-toggle-cb:checked ~ div ul.sf-menu,
+  #primary-nav .nav-toggle-cb:checked ~ .sf-menu { display: block !important; }
+
+  /* 展开状态：按钮变蓝 + 三横线变 X + 文案切换 */
+  .nav-toggle-cb:checked ~ .nav-toggle-btn { background: #0066cc; color: #fff; border-color: #0066cc; }
+  .nav-toggle-cb:checked ~ .nav-toggle-btn .nav-toggle-bars { background: transparent; }
+  .nav-toggle-cb:checked ~ .nav-toggle-btn .nav-toggle-bars::before { top: 0; transform: rotate(45deg); background: #fff; }
+  .nav-toggle-cb:checked ~ .nav-toggle-btn .nav-toggle-bars::after { top: 0; transform: rotate(-45deg); background: #fff; }
+  .nav-toggle-cb:checked ~ .nav-toggle-btn .nav-toggle-txt-open { display: none; }
+  .nav-toggle-cb:checked ~ .nav-toggle-btn .nav-toggle-txt-close { display: inline; }
+
+  #primary-nav .sf-menu > li { position: relative; float: none !important; width: auto !important; border-bottom: 1px solid #f0f0f0; line-height: 1.5 !important; }
+  #primary-nav .sf-menu > li:last-child { border-bottom: none; }
+  #primary-nav .sf-menu a { display: block !important; padding: 13px 16px !important; color: #1d1d1f !important; font-size: 15px !important; line-height: 1.4 !important; text-transform: none !important; }
+  #primary-nav .sf-menu a:hover { background: #f4f8ff; color: #0066cc !important; }
+  #primary-nav .sf-menu li ul { position: static !important; display: block !important; float: none !important; width: 100% !important; min-width: 0 !important; top: auto !important; left: auto !important; box-shadow: none !important; background: #fafafa; border-top: 1px solid #f0f0f0; padding: 0 !important; }
+  #primary-nav .sf-menu li li a { padding: 11px 16px 11px 34px !important; font-size: 14px !important; color: #555 !important; }
+  #primary-nav .sf-menu li li a:before { content: none !important; }
+}

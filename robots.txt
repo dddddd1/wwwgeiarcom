@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /work/
 Disallow: /images/
-Disallow: /tag/
 Allow: /
 
 Sitemap: https://www.geiar.com/sitemap.xml
