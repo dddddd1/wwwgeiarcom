@@ -3,3 +3,6 @@ seo-tools/
 
 # WorkBuddy 项目记忆目录（含本地工作日志，含隐私，禁止部署）
 .workbuddy/
+
+# 本地回滚备份（SEO 脚本自动生成，非网站文件，禁止提交）
+*.bak
