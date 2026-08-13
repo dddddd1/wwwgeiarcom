@@ -9,7 +9,8 @@
     {
       "source": "/(?<path>.+)/index.html",
       "destination": "/:path",
-      "permanent": true
+      "permanent": true,
+      "regex": true
     }
   ]
 }
