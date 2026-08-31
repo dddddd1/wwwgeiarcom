@@ -6,3 +6,5 @@ seo-tools/
 
 # 本地回滚备份（SEO 脚本自动生成，非网站文件，禁止提交）
 *.bak
+seo-tools/baidu_token.txt
+seo-tools/baidu_push_queue.txt
