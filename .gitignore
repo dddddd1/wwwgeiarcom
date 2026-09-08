@@ -5,6 +5,9 @@ seo-tools/
 build_tags.py
 unify_header.py
 
+# 一次性诊断产物（8/31死链清单，处理完毕，无脚本引用）
+deadlinks.txt
+
 # WorkBuddy 项目记忆目录（含本地工作日志，含隐私，禁止部署）
 .workbuddy/
 
