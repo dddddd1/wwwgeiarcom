@@ -135,6 +135,10 @@ def build(slug, name, intro, ids, related):
 <meta name="robots" content="index,follow">
 <title>标签：{name}_武进区横林兴顺金刚石设备厂</title>
 <meta name="description" content="{intro}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{name}">
+<meta property="og:description" content="{intro}">
+<meta property="og:url" content="{url}">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/mipcms.css">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/style.css">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/genericons.css">
@@ -142,6 +146,9 @@ def build(slug, name, intro, ids, related):
 <link rel="canonical" href="{url}">
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"CollectionPage","name":"{name}","url":"{url}","isPartOf":{{"@type":"WebSite","name":"武进区横林兴顺金刚石设备厂","url":"{BASE}"}}}}
+</script>
+<script type="application/ld+json">
+{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"网站首页","item":"{BASE}/"}},{{"@type":"ListItem","position":2,"name":"{name}","item":"{url}"}}]}}
 </script>
 {SP_STYLE}
 {TAG_INTRO_STYLE}

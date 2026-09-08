@@ -37,7 +37,7 @@ SP_CSS = '''
 
 HDR = '<header class="sp-hdr"><div class="sp-hdr-in"><a class="sp-hdr-logo" href="https://www.geiar.com/index.html"><img src="https://www.geiar.com/public2/assets/002/img/logo.jpg" alt="金刚石选型机选形机专业厂家"> <span>金刚石选型机选形机专业厂家</span></a><input type="checkbox" id="sp-nav-sw" class="sp-nav-sw"><label class="sp-hamb" for="sp-nav-sw" aria-label="展开菜单"><span></span><span></span><span></span></label><nav class="sp-nav" aria-label="主导航"><ul class="sp-nav-list"><li><a href="https://www.geiar.com">首页</a></li><li><a href="https://www.geiar.com/xuanxingji.html">金刚石选形机</a></li><li><a href="https://www.geiar.com/article/701.html">金刚石选型机</a></li><li><a href="https://www.geiar.com/article/701.html">氧化锆珠分选机</a></li><li><a href="https://www.geiar.com/weiqiufenji.html">微球分选机</a></li><li><a href="https://www.geiar.com/about.html">关于厂家</a></li></ul></nav></div></header>'
 
-FTR = '<footer class="sp-ftr"><div>© 2023 武进区横林兴顺金刚石设备厂 · 金刚石选型机／金刚石选形机／氧化锆珠分选机／微球分选机厂家 · <a href="https://www.geiar.com/sitemap.xml">网站地图</a></div><div>联系电话：<a href="tel:13506122530">13506122530</a>（邓经理）· 欢迎来样试机与实地考察</div></footer>'
+FTR = '<footer class="sp-ftr"><div>© 2026 武进区横林兴顺金刚石设备厂 · 金刚石选型机／金刚石选形机／氧化锆珠分选机／微球分选机厂家 · <a href="https://www.geiar.com/sitemap.xml">网站地图</a></div><div>联系电话：<a href="tel:13506122530">13506122530</a>（邓经理）· 欢迎来样试机与实地考察</div></footer>'
 
 files = [f for f in glob.glob('article/*.html') if not f.endswith('.bak')] \
       + [f'article/page/{n}.html' for n in range(2, 8)] \
