@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""生成 9 个选型机标签页：去 noindex、干净模板、真实介绍文案。"""
+"""生成 9 个选型机标签页：全站统一模板（文章页同款头部/侧边栏/底部 + content-list 列表）。"""
 import re, glob, os
+from datetime import date
 BASE = "https://www.geiar.com"
 
-# 读取 81 篇文章的 H1 标题
-title_of = {}
+# 读取 81 篇文章的 H1 标题 / 描述 / 发布日期
+articles = {}
 for f in glob.glob('article/*.html'):
-    if f.endswith('.bak'):
-        continue
     n = os.path.basename(f).replace('.html', '')
     if not n.isdigit():
         continue
-    html = open(f, encoding='utf-8', errors='ignore').read()
+    with open(f, encoding='utf-8', errors='ignore') as r:
+        html = r.read()
     m = re.search(r'<h1 class="entry-title">(.*?)</h1>', html, re.S)
     t = re.sub(r'<[^>]+>', '', m.group(1)).strip() if m else ''
-    title_of[int(n)] = t
+    md = re.search(r'<meta name="description" content="([^"]*)"', html)
+    d = md.group(1).strip() if md else ''
+    dt = re.search(r'og:release_date" content="(\d{4}-\d{2}-\d{2})"', html)
+    articles[int(n)] = (t, d, dt.group(1) if dt else '')
 
 # 标签定义: slug -> (展示名, description, intro段落, [文章id], 相关产品块)
 TAGS = [
@@ -66,59 +69,101 @@ TAGS = [
      "推荐厂家"),
 ]
 
-CARD = ('      <a class="card" href="{u}"><span class="t">{t}</span><span class="go">阅读 →</span></a>\n')
+def entry_html(aid, tag_name):
+    t, d, dt = articles.get(aid, ("相关文章", "", ""))
+    meta = f'<span class="entry-category">{tag_name}</span>'
+    if dt:
+        meta += f'<span class="entry-date">{dt}</span>'
+    return (f'<div class="clear post type-post status-publish hentry">'
+            f'<h2 class="entry-title"><a href="{BASE}/article/{aid}.html">{t}</a></h2>'
+            f'<div class="entry-overview">'
+            f'<div class="entry-summary">{d[:100]}</div>'
+            f'<div class="entry-meta">{meta}</div>'
+            f'</div></div>\n')
 
-def card_html(aid):
-    t = title_of.get(aid, "相关文章")
-    return CARD.format(u=f"{BASE}/article/{aid}.html", t=t)
+# 产品名 -> 落地页/聚合页链接（同一页面内不出现重复 URL）
+PRODUCT_LINKS = {
+    "金刚石选型机": "/xuanxingji.html",
+    "金刚石选形机": "/article/701.html",
+    "氧化锆珠筛分机": "/article/701.html",
+    "微球分选机": "/weiqiufenji.html",
+    "玻璃珠选球机": "/article/701.html",
+    "钢珠选球机": "/article/701.html",
+}
+DEFAULT_PRODUCTS = ["金刚石选型机", "氧化锆珠筛分机", "微球分选机"]
 
-def geo_html(label):
-    links = ('<a href="https://www.geiar.com/article/701.html">金刚石选型机</a>'
-             ' ｜ <a href="https://www.geiar.com/xuanxingji.html">金刚石选形机</a>'
-             ' ｜ <a href="https://www.geiar.com/article/701.html">氧化锆珠分选机</a>'
-             ' ｜ <a href="https://www.geiar.com/weiqiufenji.html">微球分选机</a>')
-    return ('<div class="geo-related"><b>相关产品：</b>' + links +
-            '</div>\n<footer class="site-owner-bar">本网站由 <strong>武进区横林兴顺金刚石设备厂</strong> 运营 ｜ <a href="https://www.geiar.com/about.html">了解厂家</a></footer>')
+def geo_html(related):
+    names = [n.strip() for n in related.split('·') if n.strip() in PRODUCT_LINKS]
+    if not names:
+        names = DEFAULT_PRODUCTS
+    links = ' ｜ '.join(f'<a href="{BASE}{PRODUCT_LINKS[n]}">{n}</a>' for n in names)
+    return (f'<div class="geo-related" data-geo-related="1" style="margin:18px 0;padding:12px 16px;'
+            f'border:1px solid #e5e5e5;border-radius:8px;background:#fafafa;font-size:14px">'
+            f'<b>相关产品：</b>{links}</div>')
 
-CSS = open('tag/jiagong/index.html', encoding='utf-8', errors='ignore').read()
-m = re.search(r'<style>(.*?)</style>', CSS, re.S)
-STYLE = m.group(1) if m else ''
+# 从文章页提取全站统一的头部/侧边栏/底部/样式组件，保证与其他页面一致
+_src = next(f for f in sorted(glob.glob('article/*.html'))
+            if os.path.basename(f)[:-5].isdigit())
+with open(_src, encoding='utf-8', errors='ignore') as r:
+    _h = r.read()
+_b = re.search(r'<body.*?>(.*)</body>', _h, re.S).group(1)
+HEADER = re.search(r'<header class="sp-hdr">.*?</header>', _b, re.S).group(0)
+SIDEBAR = re.search(r'<aside id="secondary".*?</aside>', _b, re.S).group(0)
+FOOTER = re.search(r'<footer class="sp-ftr">.*?</footer>', _b, re.S).group(0)
+SP_STYLE = next(s for s in re.findall(r'<style>.*?</style>', _h, re.S) if 'sp-hdr' in s)
+TAG_INTRO_STYLE = ('<style>.tag-intro{margin:0 0 25px;padding:14px 16px;background:#fafafa;'
+                   'border:1px solid #e5e5e5;border-radius:8px;font-size:14px;line-height:1.8;color:#444}'
+                   '.tag-intro p{margin:0}</style>')
 
 def build(slug, name, desc, intro, ids, related):
     url = f"{BASE}/tag/{slug}/"
-    cards = "".join(card_html(i) for i in ids)
+    entries = "".join(entry_html(i, name) for i in ids)
     count = len(ids)
+    # 相关标签：链接到其余标签页（与文章页尾部的相关标签区块同款样式）
+    others = "".join(f'<a style="color:#b96;text-decoration:none;margin-right:16px" '
+                     f'href="{BASE}/tag/{s2}/" title="查看 全部 {n2} 相关文章">#{n2}</a>'
+                     for s2, n2, *_ in TAGS if s2 != slug)
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 <meta name="robots" content="index,follow">
-<title>{name} - 武进区横林兴顺金刚石设备厂</title>
+<title>标签：{name}_武进区横林兴顺金刚石设备厂</title>
 <meta name="description" content="{desc}，由武进区横林兴顺金刚石设备厂整理提供。">
+<link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/mipcms.css">
+<link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/style.css">
+<link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/genericons.css">
+<link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/responsive.css">
 <link rel="canonical" href="{url}">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"CollectionPage","name":"{name}","url":"{url}","isPartOf":{{"@type":"WebSite","name":"武进区横林兴顺金刚石设备厂","url":"https://www.geiar.com"}}}}
+{{"@context":"https://schema.org","@type":"CollectionPage","name":"{name}","url":"{url}","isPartOf":{{"@type":"WebSite","name":"武进区横林兴顺金刚石设备厂","url":"{BASE}"}}}}
 </script>
-<style>
-{STYLE}
-</style>
+{SP_STYLE}
+{TAG_INTRO_STYLE}
 </head>
 <body>
-<div class="wrap">
-<nav class="breadcrumb"><a href="https://www.geiar.com/">首页</a> › {name}</nav>
-<section class="hero">
-  <h1>{name}</h1>
-  <span class="count">收录 {count} 篇相关文章</span>
-  <p>{intro}</p>
-</section>
-<main>
-<div class="grid">
-{cards}</div>
-    <p class="more">共收录 {count} 篇相关文章</p>
+<div id="page" class="site">
+{HEADER}
+<div id="content" class="site-content container clear"><!--主内容 -->
+<div id="primary" class="content-area clear">
+<main id="main" class="site-main clear">
+<div class="breadcrumbs clear"><h1>标签：{name}</h1></div>
+<div class="tag-intro"><p>{intro}</p></div>
+<div id="recent-content" class="content-list">
+{entries}</div>
 </main>
+</div><!--侧边栏-->
+{SIDEBAR}
+</div><!--底部 -->
+<div style="max-width:1080px;margin:0 auto;padding:16px 18px 4px;color:#666;font-size:14px;line-height:2"><strong>相关标签：</strong>{others}</div>
+{FOOTER}
+</div><!-- #page -->
 {geo_html(related)}
-</div>
 </body>
 </html>'''
     os.makedirs(f'tag/{slug}', exist_ok=True)
@@ -134,8 +179,8 @@ TAG_BLOCK = ''
 def update_sitemap(url):
     global TAG_BLOCK
     TAG_BLOCK += ('  <url>\n'
-                  '    <loc>' + url + '</loc>\n'
-                  '    <lastmod>2026-08-31</lastmod>\n'
+                  f'    <loc>{url}</loc>\n'
+                  f'    <lastmod>{date.today().isoformat()}</lastmod>\n'
                   '    <changefreq>weekly</changefreq>\n'
                   '    <priority>0.6</priority>\n'
                   '  </url>\n')
@@ -143,13 +188,17 @@ def update_sitemap(url):
 for slug, name, desc, intro, ids, related in TAGS:
     build(slug, name, desc, intro, ids, related)
 
-# 注入 sitemap（在原 </urlset> 前插入标签块）
-s = open(SITEMAP_URLS, encoding='utf-8').read()
-if TAG_BLOCK and '</urlset>' in s and 'tag/' not in s:
-    s = s.replace('</urlset>', TAG_BLOCK + '</urlset>')
-    open(SITEMAP_URLS, 'w', encoding='utf-8').write(s)
-    print("\n[sitemap] 已注入", TAG_BLOCK.count('<loc>'), "个标签URL")
-elif 'tag/' in s:
-    print("\n[sitemap] 已包含 tag 项，跳过注入")
+# 同步 sitemap：先移除旧 tag 条目再注入，可重复执行，新增标签也能进入 sitemap
+if TAG_BLOCK:
+    with open(SITEMAP_URLS, encoding='utf-8') as r:
+        s = r.read()
+    s2 = re.sub(r'  <url>\n    <loc>[^<]*/tag/[^<]*</loc>.*?</url>\n', '', s, flags=re.S)
+    s2 = s2.replace('</urlset>', TAG_BLOCK + '</urlset>')
+    if s2 != s:
+        with open(SITEMAP_URLS, 'w', encoding='utf-8') as w:
+            w.write(s2)
+        print("\n[sitemap] 已同步", TAG_BLOCK.count('<loc>'), "个标签URL")
+    else:
+        print("\n[sitemap] 无变化")
 else:
-    print("\n[sitemap] 未注入（检查格式）")
+    print("\n[sitemap] 无标签需要注入")
