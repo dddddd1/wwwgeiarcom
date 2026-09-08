@@ -1,6 +1,10 @@
 # 本地 SEO 辅助工具目录（脚本+诊断报告，非网站文件，禁止部署上线）
 seo-tools/
 
+# 本地构建脚本（生成 tag 页/统一头尾，仅本地使用，产物已提交）
+build_tags.py
+unify_header.py
+
 # WorkBuddy 项目记忆目录（含本地工作日志，含隐私，禁止部署）
 .workbuddy/
 
