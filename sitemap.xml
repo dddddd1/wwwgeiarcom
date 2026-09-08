@@ -547,13 +547,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.geiar.com/tag/bolizhuxuanqiuji/</loc>
+    <loc>https://www.geiar.com/tag/jingangshixuanxingji/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.geiar.com/tag/changjiazhixiao/</loc>
+    <loc>https://www.geiar.com/tag/yanghuagaozhushaifenji/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geiar.com/tag/bolizhuxuanqiuji/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -565,25 +571,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.geiar.com/tag/jiage/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.geiar.com/tag/jingangshixuanxingji/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.geiar.com/tag/tuijianchangjia/</loc>
-    <lastmod>2026-09-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.geiar.com/tag/weihubaoyang/</loc>
+    <loc>https://www.geiar.com/tag/changjiazhixiao/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -595,7 +583,25 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.geiar.com/tag/yanghuagaozhushaifenji/</loc>
+    <loc>https://www.geiar.com/tag/weihubaoyang/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geiar.com/tag/jiage/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geiar.com/tag/tuijianchangjia/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.geiar.com/tag/gongzuoyuanli/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
