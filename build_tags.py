@@ -115,7 +115,7 @@ TAG_INTRO_STYLE = ('<style>.tag-intro{margin:0 0 25px;padding:14px 16px;backgrou
                    'border:1px solid #e5e5e5;border-radius:8px;font-size:14px;line-height:1.8;color:#444}'
                    '.tag-intro p{margin:0}</style>')
 
-def build(slug, name, desc, intro, ids, related):
+def build(slug, name, intro, ids, related):
     url = f"{BASE}/tag/{slug}/"
     entries = "".join(entry_html(i, name) for i in ids)
     count = len(ids)
@@ -134,7 +134,7 @@ def build(slug, name, desc, intro, ids, related):
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 <meta name="robots" content="index,follow">
 <title>标签：{name}_武进区横林兴顺金刚石设备厂</title>
-<meta name="description" content="{desc}，由武进区横林兴顺金刚石设备厂整理提供。">
+<meta name="description" content="{intro}">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/mipcms.css">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/style.css">
 <link rel="stylesheet" type="text/css" href="{BASE}/public2/assets/002/css/genericons.css">
@@ -185,8 +185,8 @@ def update_sitemap(url):
                   '    <priority>0.6</priority>\n'
                   '  </url>\n')
 
-for slug, name, desc, intro, ids, related in TAGS:
-    build(slug, name, desc, intro, ids, related)
+for slug, name, _, intro, ids, related in TAGS:
+    build(slug, name, intro, ids, related)
 
 # 同步 sitemap：先移除旧 tag 条目再注入，可重复执行，新增标签也能进入 sitemap
 if TAG_BLOCK:
