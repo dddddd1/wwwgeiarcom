@@ -8,3 +8,4 @@ seo-tools/
 *.bak
 seo-tools/baidu_token.txt
 seo-tools/baidu_push_queue.txt
+.DS_Store
