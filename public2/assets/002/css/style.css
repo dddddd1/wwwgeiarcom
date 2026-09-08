@@ -3183,3 +3183,8 @@ display: block;
 
 
 
+
+/* 技术参数表 */
+.entry-content table.param-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+.param-table th, .param-table td { border: 1px solid #d8dde4; padding: 8px 10px; text-align: left; }
+.param-table th { background: #f2f5f9; }
