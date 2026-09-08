@@ -1,6 +1,11 @@
 {
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/(.*)/index.html", "destination": "/$1/", "permanent": true }
+    { "source": "/(.*)/index.html", "destination": "/$1/", "permanent": true },
+    { "source": "/article/56.html", "destination": "/article/6.html", "permanent": true },
+    { "source": "/article/30.html", "destination": "/article/64.html", "permanent": true },
+    { "source": "/article/103.html", "destination": "/article/51.html", "permanent": true },
+    { "source": "/article/68.html", "destination": "/article/42.html", "permanent": true },
+    { "source": "/article/157.html", "destination": "/article/28.html", "permanent": true }
   ]
 }
