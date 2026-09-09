@@ -2423,6 +2423,8 @@ blockquote cite:before {
 }
 
 /* Back to top button */
+#back-top a { background:#333; border-radius:4px; display:block; box-shadow:0 1px 3px rgba(0,0,0,.25); cursor:pointer; }
+#back-top a:hover { background:#555; }
 #back-top {
   display: none;
   position: fixed;
