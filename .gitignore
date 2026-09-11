@@ -8,11 +8,10 @@ unify_header.py
 # 一次性诊断产物（8/31死链清单，处理完毕，无脚本引用）
 deadlinks.txt
 
-# 工具生成的工作日志目录（robots.txt 已 Disallow，禁止部署上线）
-work/
-
 # WorkBuddy 项目记忆目录（含本地工作日志，含隐私，禁止部署）
 .workbuddy/
+
+.agnes/
 
 # 本地回滚备份（SEO 脚本自动生成，非网站文件，禁止提交）
 *.bak
